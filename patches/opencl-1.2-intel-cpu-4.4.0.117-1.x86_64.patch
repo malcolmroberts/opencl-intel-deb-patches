@@ -1,0 +1,31 @@
+diff -ruN opencl-1.2-intel-cpu-4.4.0.117-1.x86_64.orig/DEBIAN/postinst opencl-1.2-intel-cpu-4.4.0.117-1.x86_64/DEBIAN/postinst
+--- opencl-1.2-intel-cpu-4.4.0.117-1.x86_64.orig/DEBIAN/postinst	2014-05-08 20:00:19.000000000 +0200
++++ opencl-1.2-intel-cpu-4.4.0.117-1.x86_64/DEBIAN/postinst	2014-09-01 15:09:11.390476212 +0200
+@@ -1,5 +1,5 @@
+ set -e
+-if [[ "/opt/intel/opencl-1.2-4.4.0.117" != "/opt/intel/opencl-1.2-4.4.0.117" ]]; then
++if [ "/opt/intel/opencl-1.2-4.4.0.117" != "/opt/intel/opencl-1.2-4.4.0.117" ]; then
+ 
+ echo -n "/opt/intel/opencl-1.2-4.4.0.117/lib64/libintelocl.so" > "/opt/intel/opencl-1.2-4.4.0.117/etc/intel64.icd.new";
+ /bin/chown --reference="/opt/intel/opencl-1.2-4.4.0.117/etc/intel64.icd" "/opt/intel/opencl-1.2-4.4.0.117/etc/intel64.icd.new";
+@@ -15,7 +15,7 @@
+     echo "warning: \`/etc/OpenCL/vendors/intel64.icd' exists and not a symlink; alternative \`opencl-intel-runtime' will not be installed.";
+     exit 1;
+ fi
+-/usr/sbin/update-alternatives \
+-    --install "/opt/intel/opencl"                        opencl-intel-runtime     "/opt/intel/opencl-1.2-4.4.0.117"                 -2147489036 \
++update-alternatives \
++    --install "/opt/intel/opencl"                        opencl-intel-runtime     "/opt/intel/opencl-1.2-4.4.0.117"                 -2147483648 \
+     --slave   "/etc/OpenCL/vendors/intel64.icd" opencl-intel-runtime-icd "/opt/intel/opencl-1.2-4.4.0.117/etc/intel64.icd";
+ 
+diff -ruN opencl-1.2-intel-cpu-4.4.0.117-1.x86_64.orig/DEBIAN/prerm opencl-1.2-intel-cpu-4.4.0.117-1.x86_64/DEBIAN/prerm
+--- opencl-1.2-intel-cpu-4.4.0.117-1.x86_64.orig/DEBIAN/prerm	2014-05-08 20:00:19.000000000 +0200
++++ opencl-1.2-intel-cpu-4.4.0.117-1.x86_64/DEBIAN/prerm	2014-09-01 14:34:19.055997676 +0200
+@@ -1,4 +1,4 @@
+-if /usr/sbin/update-alternatives --display "opencl-intel-runtime" > /dev/null; then
+-    /usr/sbin/update-alternatives --remove "opencl-intel-runtime" "/opt/intel/opencl-1.2-4.4.0.117";
+-    /usr/sbin/update-alternatives --remove "opencl-intel-runtime-icd" "/opt/intel/opencl-1.2-4.4.0.117/etc/intel64.icd"
++if update-alternatives --display "opencl-intel-runtime" > /dev/null; then
++    update-alternatives --remove "opencl-intel-runtime" "/opt/intel/opencl-1.2-4.4.0.117";
++    update-alternatives --remove "opencl-intel-runtime-icd" "/opt/intel/opencl-1.2-4.4.0.117/etc/intel64.icd"
+ fi

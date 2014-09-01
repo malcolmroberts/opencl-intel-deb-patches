@@ -1,0 +1,70 @@
+diff -ruN opencl-1.2-intel-devel-4.4.0.117-1.x86_64.orig/DEBIAN/postinst opencl-1.2-intel-devel-4.4.0.117-1.x86_64/DEBIAN/postinst
+--- opencl-1.2-intel-devel-4.4.0.117-1.x86_64.orig/DEBIAN/postinst	2014-05-08 20:00:33.000000000 +0200
++++ opencl-1.2-intel-devel-4.4.0.117-1.x86_64/DEBIAN/postinst	2014-09-01 15:15:00.772341283 +0200
+@@ -31,8 +31,8 @@
+ if [ -e "/usr/bin/KBServer64" -a ! -L "/usr/bin/KBServer64" ]; then
+     echo "warning: \`/usr/bin/KBServer64' exists and not a symlink; alternative \`opencl-intel-tools' will not be installed.";
+     exit 1;
+-fi;/usr/sbin/update-alternatives \
+-    --install "/opt/intel/.opencl-tools"  opencl-intel-tools                "/opt/intel/opencl-1.2-4.4.0.117"                     -2147489036   \
++fi;update-alternatives \
++    --install "/opt/intel/.opencl-tools"  opencl-intel-tools                "/opt/intel/opencl-1.2-4.4.0.117"                     -2147483648    \
+     --slave   "/usr/bin/ioc64"           opencl-intel-tools-ioc64           "/opt/intel/opencl-1.2-4.4.0.117/bin/ioc64"                     \
+     --slave   "/usr/bin/KBServer64"      opencl-intel-tools-KBServer64      "/opt/intel/opencl-1.2-4.4.0.117/bin/KBServer64"                \
+     --slave   "/usr/bin/KernelBuilder64" opencl-intel-tools-KernelBuilder64 "/opt/intel/opencl-1.2-4.4.0.117/bin/KernelBuilder64"           ;
+diff -ruN opencl-1.2-intel-devel-4.4.0.117-1.x86_64.orig/DEBIAN/postinst~ opencl-1.2-intel-devel-4.4.0.117-1.x86_64/DEBIAN/postinst~
+--- opencl-1.2-intel-devel-4.4.0.117-1.x86_64.orig/DEBIAN/postinst~	1970-01-01 01:00:00.000000000 +0100
++++ opencl-1.2-intel-devel-4.4.0.117-1.x86_64/DEBIAN/postinst~	2014-09-01 14:18:27.861296373 +0200
+@@ -0,0 +1,38 @@
++set -e;
++
++echo '#!/bin/bash' > /opt/intel/opencl-1.2-4.4.0.117/bin/KernelBuilder64
++echo 'dir=/opt/intel/opencl-1.2-4.4.0.117' >> /opt/intel/opencl-1.2-4.4.0.117/bin/KernelBuilder64
++echo 'LD_LIBRARY_PATH="$dir/lib64:$LD_LIBRARY_PATH" exec "$dir/bin/KernelBuilder64.bin" "$@"' >> /opt/intel/opencl-1.2-4.4.0.117/bin/KernelBuilder64
++
++echo '#!/bin/bash' > /opt/intel/opencl-1.2-4.4.0.117/bin/KBServer64
++echo 'dir=/opt/intel/opencl-1.2-4.4.0.117' >> /opt/intel/opencl-1.2-4.4.0.117/bin/KBServer64
++echo 'LD_LIBRARY_PATH="$dir/lib64:$LD_LIBRARY_PATH" exec "$dir/bin/KBServer64.bin" "$@"' >> /opt/intel/opencl-1.2-4.4.0.117/bin/KBServer64
++
++echo '#!/bin/bash' > /opt/intel/opencl-1.2-4.4.0.117/bin/ioc64
++echo 'dir=/opt/intel/opencl-1.2-4.4.0.117' >> /opt/intel/opencl-1.2-4.4.0.117/bin/ioc64
++echo 'LD_LIBRARY_PATH="$dir/lib64:$LD_LIBRARY_PATH" exec "$dir/bin/ioc64.bin" "$@"' >> /opt/intel/opencl-1.2-4.4.0.117/bin/ioc64
++
++chmod a+x /opt/intel/opencl-1.2-4.4.0.117/bin/ioc64
++chmod a+x /opt/intel/opencl-1.2-4.4.0.117/bin/KernelBuilder64
++chmod a+x /opt/intel/opencl-1.2-4.4.0.117/bin/KBServer64
++
++if [ -e "/opt/intel/.opencl-tools" -a ! -L "/opt/intel/.opencl-tools" ]; then
++    echo "warning: \`/opt/intel/.opencl-tools' exists and not a symlink; alternative \`opencl-intel-tools' will not be installed.";
++    exit 1;
++fi;
++if [ -e "/usr/bin/ioc64" -a ! -L "/usr/bin/ioc64" ]; then
++    echo "warning: \`/usr/bin/ioc64' exists and not a symlink; alternative \`opencl-intel-tools' will not be installed.";
++    exit 1;
++fi;
++if [ -e "/usr/bin/KernelBuilder64" -a ! -L "/usr/bin/KernelBuilder64" ]; then
++    echo "warning: \`/usr/bin/KernelBuilder64' exists and not a symlink; alternative \`opencl-intel-tools' will not be installed.";
++    exit 1;
++fi;
++if [ -e "/usr/bin/KBServer64" -a ! -L "/usr/bin/KBServer64" ]; then
++    echo "warning: \`/usr/bin/KBServer64' exists and not a symlink; alternative \`opencl-intel-tools' will not be installed.";
++    exit 1;
++fi;/usr/sbin/update-alternatives \
++    --install "/opt/intel/.opencl-tools"  opencl-intel-tools                "/opt/intel/opencl-1.2-4.4.0.117"                     -2147483648    \
++    --slave   "/usr/bin/ioc64"           opencl-intel-tools-ioc64           "/opt/intel/opencl-1.2-4.4.0.117/bin/ioc64"                     \
++    --slave   "/usr/bin/KBServer64"      opencl-intel-tools-KBServer64      "/opt/intel/opencl-1.2-4.4.0.117/bin/KBServer64"                \
++    --slave   "/usr/bin/KernelBuilder64" opencl-intel-tools-KernelBuilder64 "/opt/intel/opencl-1.2-4.4.0.117/bin/KernelBuilder64"           ;
+diff -ruN opencl-1.2-intel-devel-4.4.0.117-1.x86_64.orig/DEBIAN/prerm opencl-1.2-intel-devel-4.4.0.117-1.x86_64/DEBIAN/prerm
+--- opencl-1.2-intel-devel-4.4.0.117-1.x86_64.orig/DEBIAN/prerm	2014-05-08 20:00:33.000000000 +0200
++++ opencl-1.2-intel-devel-4.4.0.117-1.x86_64/DEBIAN/prerm	2014-09-01 14:38:38.203272715 +0200
+@@ -1,6 +1,6 @@
+-if /usr/sbin/update-alternatives --display "opencl-intel-tools" > /dev/null; then
+-    /usr/sbin/update-alternatives --remove "opencl-intel-tools" "/opt/intel/opencl-1.2-4.4.0.117";
++if update-alternatives --display "opencl-intel-tools" > /dev/null; then
++    update-alternatives --remove "opencl-intel-tools" "/opt/intel/opencl-1.2-4.4.0.117";
+ fi
+ rm -f /opt/intel/opencl-1.2-4.4.0.117/bin/KernelBuilder64
+ rm -f /opt/intel/opencl-1.2-4.4.0.117/bin/ioc64
+-rm -f /opt/intel/opencl-1.2-4.4.0.117/bin/KBServer64
+\ No newline at end of file
++rm -f /opt/intel/opencl-1.2-4.4.0.117/bin/KBServer64

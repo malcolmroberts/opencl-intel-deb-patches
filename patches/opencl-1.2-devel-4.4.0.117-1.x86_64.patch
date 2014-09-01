@@ -1,0 +1,9 @@
+diff -ruN opencl-1.2-devel-4.4.0.117-1.x86_64.orig/DEBIAN/postinst opencl-1.2-devel-4.4.0.117-1.x86_64/DEBIAN/postinst
+--- opencl-1.2-devel-4.4.0.117-1.x86_64.orig/DEBIAN/postinst	2014-05-08 20:00:18.000000000 +0200
++++ opencl-1.2-devel-4.4.0.117-1.x86_64/DEBIAN/postinst	2014-09-01 14:08:29.248014165 +0200
+@@ -5,4 +5,4 @@
+     exit 1;
+ fi
+ update-alternatives \
+-    --install "/usr/include/CL" opencl-headers "/opt/intel/opencl-1.2-4.4.0.117/include/CL" -2147489036;
++    --install "/usr/include/CL" opencl-headers "/opt/intel/opencl-1.2-4.4.0.117/include/CL" -2147483648;

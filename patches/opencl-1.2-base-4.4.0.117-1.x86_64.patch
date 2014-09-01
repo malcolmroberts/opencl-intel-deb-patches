@@ -1,0 +1,18 @@
+diff -ruN opencl-base.orig/DEBIAN/postinst opencl-base/DEBIAN/postinst
+--- opencl-base.orig/DEBIAN/postinst	2014-05-08 20:00:16.000000000 +0200
++++ opencl-base/DEBIAN/postinst	2014-09-01 13:23:40.048399667 +0200
+@@ -1,10 +1,10 @@
+ set -e
+- [[ -e etc/OpenCL/ ]] & chmod -R 755 /etc/OpenCL
++[ -e etc/OpenCL/ ] && chmod -R 755 /etc/OpenCL
+ if [ -e "/usr/lib/x86_64-linux-gnu/libOpenCL.so" -a ! -L "/usr/lib/x86_64-linux-gnu/libOpenCL.so" ]; then
+     echo "warning: \`/lib64/libOpenCL.so' exists and not a symlink; alternative \`opencl-libOpenCL.so' will not be installed.";
+     exit 1;
+ fi
+ update-alternatives \
+-    --install "/usr/lib/x86_64-linux-gnu/libOpenCL.so"     opencl-libOpenCL.so     "/opt/intel/opencl-1.2-4.4.0.117/lib64/libOpenCL.so"     -2147489036 \
++    --install "/usr/lib/x86_64-linux-gnu/libOpenCL.so"     opencl-libOpenCL.so     "/opt/intel/opencl-1.2-4.4.0.117/lib64/libOpenCL.so"     -2147483648 \
+     --slave   "/usr/lib/x86_64-linux-gnu/libOpenCL.so.1"   opencl-libOpenCL.so.1   "/opt/intel/opencl-1.2-4.4.0.117/lib64/libOpenCL.so.1" \
+-    --slave   "/usr/lib/x86_64-linux-gnu/libOpenCL.so.1.2" opencl-libOpenCL.so.1.2 "/opt/intel/opencl-1.2-4.4.0.117/lib64/libOpenCL.so.1.2"
+\ No newline at end of file
++    --slave   "/usr/lib/x86_64-linux-gnu/libOpenCL.so.1.2" opencl-libOpenCL.so.1.2 "/opt/intel/opencl-1.2-4.4.0.117/lib64/libOpenCL.so.1.2"
