@@ -1,7 +1,7 @@
 opencl-intel-deb-patches
 ========================
 
-Patches for Debian/Ubuntu the Intel OpenCL drivers.
+Patches for the Debian/Ubuntu version of the Intel OpenCL drivers.
 
 Intel has provided Linux drivers for OpenCL on their CPUs and GPUs
 (https://software.intel.com/en-us/vcsource/tools/opencl-sdk), but the
