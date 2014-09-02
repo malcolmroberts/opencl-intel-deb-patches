@@ -3,6 +3,12 @@
 # apply the patches in the patch directory to the .deb files for
 # Intel's OpenCL.
 
+whichd=$(which dpkg-deb)
+if [ "${whichd}" == "" ] ; then
+    echo "dpkg-deb not in path: abort."
+    exit
+fi
+
 for name in opencl-1.2-base-4.4.0.117-1.x86_64 opencl-1.2-devel-4.4.0.117-1.x86_64 opencl-1.2-intel-cpu-4.4.0.117-1.x86_64 opencl-1.2-intel-devel-4.4.0.117-1.x86_64
 do
     echo ${name}.deb
@@ -31,7 +37,7 @@ do
 	rm -rf ${dir}
 	
     else
-	echo "Input file "${name}.deb" does not exist."
+	echo "Input file "${name}.deb" does not exist; file not patched."
     fi
 done
 
